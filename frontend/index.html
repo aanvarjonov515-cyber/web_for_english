@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Personal English vocabulary learning trainer"
+    >
+
+    <title>English Vocabulary Trainer</title>
+
+    <!-- Main stylesheet -->
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+</head>
+
+<body>
+
+<!-- =========================================================
+     APP WRAPPER
+========================================================= -->
+<div id="app" class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <span>EN</span>
+                </div>
+
+                <div class="brand-text">
+                    <h1>VocabLab</h1>
+                    <p>English Trainer</p>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="sidebar-close"
+                id="sidebarClose"
+                aria-label="Close menu"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">
+                LEARNING
+            </p>
+
+            <button
+                type="button"
+                class="nav-item active"
+                data-page="dashboard"
+            >
+                <span class="nav-icon">⌂</span>
+                <span class="nav-label">Dashboard</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="vocabulary"
+            >
+                <span class="nav-icon">▤</span>
+                <span class="nav-label">My Vocabulary</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="reading"
+            >
+                <span class="nav-icon">◉</span>
+                <span class="nav-label">Reading</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="pronunciation"
+            >
+                <span class="nav-icon">🔊</span>
+                <span class="nav-label">Pronunciation</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="writing"
+            >
+                <span class="nav-icon">✎</span>
+                <span class="nav-label">Writing</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="listening"
+            >
+                <span class="nav-icon">◉</span>
+                <span class="nav-label">Listening</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="review"
+            >
+                <span class="nav-icon">↻</span>
+                <span class="nav-label">Review</span>
+            </button>
+
+
+            <p class="nav-title nav-title-spaced">
+                ANALYTICS
+            </p>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="progress"
+            >
+                <span class="nav-icon">◒</span>
+                <span class="nav-label">My Progress</span>
+            </button>
+
+
+            <p class="nav-title nav-title-spaced">
+                SYSTEM
+            </p>
+
+            <button
+                type="button"
+                class="nav-item"
+                data-page="settings"
+            >
+                <span class="nav-icon">⚙</span>
+                <span class="nav-label">Settings</span>
+            </button>
+
+        </nav>
+
+
+        <!-- Sidebar footer -->
+        <div class="sidebar-footer">
+
+            <div class="daily-goal-card">
+
+                <div class="daily-goal-header">
+                    <span>Daily Goal</span>
+                    <strong id="dailyGoalPercent">
+                        0%
+                    </strong>
+                </div>
+
+                <div class="progress-track">
+                    <div
+                        class="progress-value"
+                        id="dailyGoalProgress"
+                        style="width: 0%"
+                    ></div>
+                </div>
+
+                <p>
+                    Keep learning every day.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+    <div class="main-area">
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div class="page-heading">
+
+                    <p class="eyebrow">
+                        PERSONAL LANGUAGE TRAINER
+                    </p>
+
+                    <h2 id="pageTitle">
+                        Dashboard
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="streak-chip">
+
+                    <span class="streak-icon">
+                        🔥
+                    </span>
+
+                    <div>
+                        <strong id="streakValue">
+                            0
+                        </strong>
+
+                        <span>
+                            day streak
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    id="refreshButton"
+                    aria-label="Refresh data"
+                    title="Refresh"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+        <main class="content">
+
+            <!-- =================================================
+                 DASHBOARD PAGE
+            ================================================== -->
+            <section
+                class="page-section active"
+                id="page-dashboard"
+                data-page-section="dashboard"
+            >
+
+                <!-- Welcome area -->
+                <div class="welcome-section">
+
+                    <div class="welcome-copy">
+
+                        <p class="section-kicker">
+                            YOUR ENGLISH JOURNEY
+                        </p>
+
+                        <h3>
+                            Build your vocabulary.
+                            <span>
+                                Speak with confidence.
+                            </span>
+                        </h3>
+
+                        <p class="welcome-description">
+                            Import your English vocabulary and learn it
+                            through reading, pronunciation, writing,
+                            listening, and smart review.
+                        </p>
+
+                        <div class="welcome-actions">
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                data-page-target="import"
+                                id="startLearningButton"
+                            >
+                                <span>＋</span>
+                                Add Vocabulary
+                            </button>
+
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                data-page-target="vocabulary"
+                            >
+                                View Vocabulary
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="welcome-visual">
+
+                        <div class="visual-orbit orbit-one"></div>
+                        <div class="visual-orbit orbit-two"></div>
+
+                        <div class="visual-card-main">
+
+                            <div class="visual-card-top">
+                                <span>ENGLISH</span>
+                                <span>01</span>
+                            </div>
+
+                            <div class="visual-word">
+                                hello
+                            </div>
+
+                            <div class="visual-meaning">
+                                salom
+                            </div>
+
+                            <div class="visual-audio">
+
+                                <button
+                                    type="button"
+                                    class="audio-circle-button"
+                                    id="heroAudioButton"
+                                    title="Listen"
+                                >
+                                    🔊
+                                </button>
+
+                                <div class="audio-lines">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon blue">
+                            ▤
+                        </div>
+
+                        <div class="stat-info">
+
+                            <span>
+                                Total Words
+                            </span>
+
+                            <strong id="totalWords">
+                                0
+                            </strong>
+
+                            <small>
+                                in your library
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon purple">
+                            ✓
+                        </div>
+
+                        <div class="stat-info">
+
+                            <span>
+                                Correct Answers
+                            </span>
+
+                            <strong id="correctAnswers">
+                                0
+                            </strong>
+
+                            <small>
+                                completed
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon orange">
+                            %
+                        </div>
+
+                        <div class="stat-info">
+
+                            <span>
+                                Accuracy
+                            </span>
+
+                            <strong id="accuracy">
+                                0%
+                            </strong>
+
+                            <small>
+                                overall performance
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="stat-icon green">
+                            ★
+                        </div>
+
+                        <div class="stat-info">
+
+                            <span>
+                                Learning Sessions
+                            </span>
+
+                            <strong id="totalAttempts">
+                                0
+                            </strong>
+
+                            <small>
+                                attempts recorded
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- Quick learning modes -->
+                <div class="section-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            LEARNING MODES
+                        </p>
+
+                        <h3>
+                            Choose how you want to learn
+                        </h3>
+                    </div>
+
+                    <span class="section-note">
+                        4 core skills
+                    </span>
+
+                </div>
+
+
+                <div class="learning-grid">
+
+                    <!-- Reading -->
+                    <article
+                        class="learning-card reading-card"
+                        data-page-target="reading"
+                    >
+
+                        <div class="learning-card-icon">
+                            ◉
+                        </div>
+
+                        <div class="learning-card-body">
+
+                            <div class="learning-card-title-row">
+
+                                <h4>
+                                    Reading
+                                </h4>
+
+                                <span class="skill-badge">
+                                    READ
+                                </span>
+
+                            </div>
+
+                            <p>
+                                See the English word and its Uzbek
+                                meaning together.
+                            </p>
+
+                        </div>
+
+                        <div class="learning-card-arrow">
+                            →
+                        </div>
+
+                    </article>
+
+
+                    <!-- Pronunciation -->
+                    <article
+                        class="learning-card pronunciation-card"
+                        data-page-target="pronunciation"
+                    >
+
+                        <div class="learning-card-icon">
+                            🔊
+                        </div>
+
+                        <div class="learning-card-body">
+
+                            <div class="learning-card-title-row">
+
+                                <h4>
+                                    Pronunciation
+                                </h4>
+
+                                <span class="skill-badge">
+                                    SPEAK
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Listen to how every English word
+                                is pronounced.
+                            </p>
+
+                        </div>
+
+                        <div class="learning-card-arrow">
+                            →
+                        </div>
+
+                    </article>
+
+
+                    <!-- Writing -->
+                    <article
+                        class="learning-card writing-card"
+                        data-page-target="writing"
+                    >
+
+                        <div class="learning-card-icon">
+                            ✎
+                        </div>
+
+                        <div class="learning-card-body">
+
+                            <div class="learning-card-title-row">
+
+                                <h4>
+                                    Writing
+                                </h4>
+
+                                <span class="skill-badge">
+                                    WRITE
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Read the meaning and type the correct
+                                English word.
+                            </p>
+
+                        </div>
+
+                        <div class="learning-card-arrow">
+                            →
+                        </div>
+
+                    </article>
+
+
+                    <!-- Listening -->
+                    <article
+                        class="learning-card listening-card"
+                        data-page-target="listening"
+                    >
+
+                        <div class="learning-card-icon">
+                            ◉
+                        </div>
+
+                        <div class="learning-card-body">
+
+                            <div class="learning-card-title-row">
+
+                                <h4>
+                                    Listening
+                                </h4>
+
+                                <span class="skill-badge">
+                                    LISTEN
+                                </span>
+
+                            </div>
+
+                            <p>
+                                Hear the word and type exactly what
+                                you hear.
+                            </p>
+
+                        </div>
+
+                        <div class="learning-card-arrow">
+                            →
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- Recent vocabulary -->
+                <div class="section-header recent-header">
+
+                    <div>
+                        <p class="section-kicker">
+                            YOUR LIBRARY
+                        </p>
+
+                        <h3>
+                            Recently added words
+                        </h3>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="text-button"
+                        data-page-target="vocabulary"
+                    >
+                        See all →
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="recent-words-card"
+                    id="recentWordsContainer"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-state-icon">
+                            📚
+                        </div>
+
+                        <h4>
+                            No vocabulary yet
+                        </h4>
+
+                        <p>
+                            Add your first list of English words
+                            to start learning.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="primary-button small"
+                            data-page-target="import"
+                        >
+                            Add first words
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 IMPORT PAGE
+            ================================================== -->
+            <section
+                class="page-section"
+                id="page-import"
+                data-page-section="import"
+            >
+
+                <div class="page-intro">
+
+                    <p class="section-kicker">
+                        VOCABULARY IMPORT
+                    </p>
+
+                    <h3>
+                        Add your English words
+                    </h3>
+
+                    <p>
+                        Paste your vocabulary in almost any simple
+                        format. The system will separate the word,
+                        pronunciation and part of speech, then
+                        translate it automatically.
+                    </p>
+
+                </div>
+
+
+                <div class="import-layout">
+
+                    <div class="import-input-card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <span class="card-label">
+                                    STEP 01
+                                </span>
+
+                                <h4>
+                                    Paste vocabulary
+                                </h4>
+                            </div>
+
+                            <span class="format-badge">
+                                AUTO PARSE
+                            </span>
+
+                        </div>
+
+
+                        <label
+                            for="vocabularyInput"
+                            class="input-label"
+                        >
+                            English vocabulary
+                        </label>
+
+                        <textarea
+                            id="vocabularyInput"
+                            class="vocabulary-textarea"
+                            placeholder="Example:
+
+Byel excl /baɪ/
+coffee n /ˈkɒfi/
+Daddy n /ˈdædi/
+day n /deɪ/
+English n /ˈɪŋɡlɪʃ/
+fine adj /faɪn/
+first name n /ˌfɜːst ˈneɪm/
+Good afternoon! excl /ɡʊd ˌɑːftəˈnuːn/"
+                            spellcheck="false"
+                        ></textarea>
+
+
+                        <div class="input-footer">
+
+                            <span id="inputWordCount">
+                                0 words detected
+                            </span>
+
+                            <button
+                                type="button"
+                                class="ghost-button"
+                                id="clearInputButton"
+                            >
+                                Clear
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="primary-button full"
+                            id="importWordsButton"
+                        >
+                            <span>✦</span>
+                            Translate & Add Words
+                        </button>
+
+                    </div>
+
+
+                    <div class="import-info-card">
+
+                        <div class="info-icon">
+                            ✦
+                        </div>
+
+                        <h4>
+                            Automatic processing
+                        </h4>
+
+                        <p>
+                            You only need to provide the English
+                            vocabulary. The system handles the
+                            rest.
+                        </p>
+
+
+                        <div class="process-list">
+
+                            <div class="process-item">
+
+                                <span class="process-number">
+                                    01
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Parse
+                                    </strong>
+
+                                    <small>
+                                        Detect words and metadata
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="process-item">
+
+                                <span class="process-number">
+                                    02
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Translate
+                                    </strong>
+
+                                    <small>
+                                        Find the Uzbek meaning
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="process-item">
+
+                                <span class="process-number">
+                                    03
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Save
+                                    </strong>
+
+                                    <small>
+                                        Store everything in your library
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="process-item">
+
+                                <span class="process-number">
+                                    04
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Learn
+                                    </strong>
+
+                                    <small>
+                                        Practice across four skills
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Import preview -->
+                <div
+                    class="import-preview-section hidden"
+                    id="importPreviewSection"
+                >
+
+                    <div class="section-header">
+
+                        <div>
+                            <p class="section-kicker">
+                                PREVIEW
+                            </p>
+
+                            <h3>
+                                Translated vocabulary
+                            </h3>
+                        </div>
+
+                        <span
+                            class="success-badge"
+                            id="importSuccessBadge"
+                        >
+                            0 imported
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="preview-table-wrapper"
+                        id="importPreviewContainer"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 VOCABULARY PAGE
+            ================================================== -->
+            <section
+                class="page-section"
+                id="page-vocabulary"
+                data-page-section="vocabulary"
+            >
+
+                <div class="page-intro">
+
+                    <p class="section-kicker">
+                        MY VOCABULARY
+                    </p>
+
+                    <h3>
+                        Your English word library
+                    </h3>
+
+                    <p>
+                        Every word you import stays here with its
+                        pronunciation and Uzbek translation.
+                    </p>
+
+                </div>
+
+
+                <div class="library-toolbar">
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="search"
+                            id="wordSearchInput"
+                            placeholder="Search your vocabulary..."
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-page-target="import"
+                    >
+                        ＋ Add words
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="vocabulary-list"
+                    id="vocabularyList"
+                >
+
+                    <div class="loading-state">
+                        Loading vocabulary...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 READING PAGE
+            ================================================== -->
+            <section
+                class="page-section study-page"
+                id="page-reading"
+                data-page-section="reading"
+            >
+
+                <div class="study-header">
+
+                    <div>
+
+                        <p class="section-kicker">
+                            STEP 01 • READING
+                        </p>
+
+                        <h3>
+                            See and understand
+                        </h3>
+
+                        <p>
+                            Read each word together with its meaning.
+                        </p>
+
+                    </div>
+
+
+                    <div class="study-progress">
+
+                        <span id="readingProgressText">
+                            0 / 0
+                        </span>
+
+                        <div class="mini-progress-track">
+                            <div
+                                class="mini-progress-value"
+                                id="readingProgressValue"
+                                style="width: 0%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-card">
+
+                    <div class="word-card-top">
+
+                        <span class="mode-label">
+                            ENGLISH WORD
+                        </span>
+
+                        <span
+                            class="word-position"
+                            id="readingPosition"
+                        >
+                            1
+                        </span>
+
+                    </div>
+
+
+                    <div class="study-word" id="readingWord">
+                        —
+                    </div>
+
+                    <div
+                        class="study-pronunciation"
+                        id="readingPronunciation"
+                    >
+                        —
+                    </div>
+
+
+                    <div class="meaning-box">
+
+                        <span>
+                            O‘ZBEKCHA
+                        </span>
+
+                        <strong id="readingTranslation">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="study-actions">
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="readingPreviousButton"
+                        >
+                            ← Previous
+                        </button>
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            id="readingNextButton"
+                        >
+                            Next →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PRONUNCIATION PAGE
+            ================================================== -->
+            <section
+                class="page-section study-page"
+                id="page-pronunciation"
+                data-page-section="pronunciation"
+            >
+
+                <div class="study-header">
+
+                    <div>
+
+                        <p class="section-kicker">
+                            STEP 02 • PRONUNCIATION
+                        </p>
+
+                        <h3>
+                            Listen and repeat
+                        </h3>
+
+                        <p>
+                            Hear each word as many times as you need.
+                        </p>
+
+                    </div>
+
+
+                    <div class="study-progress">
+
+                        <span id="pronunciationProgressText">
+                            0 / 0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pronunciation-stage">
+
+                    <div class="sound-rings">
+                        <div class="sound-ring ring-one"></div>
+                        <div class="sound-ring ring-two"></div>
+                        <div class="sound-ring ring-three"></div>
+
+                        <button
+                            type="button"
+                            class="big-audio-button"
+                            id="pronunciationPlayButton"
+                            title="Play pronunciation"
+                        >
+                            🔊
+                        </button>
+                    </div>
+
+
+                    <div class="pronunciation-word" id="pronunciationWord">
+                        —
+                    </div>
+
+                    <div
+                        class="pronunciation-ipa"
+                        id="pronunciationIPA"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="pronunciation-meaning"
+                        id="pronunciationMeaning"
+                    >
+                        —
+                    </div>
+
+
+                    <div class="audio-controls">
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="slowAudioButton"
+                        >
+                            0.75× Slow
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="normalAudioButton"
+                        >
+                            1× Normal
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="repeatAudioButton"
+                        >
+                            Repeat
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="pronunciationNextButton"
+                    >
+                        I know this word →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 WRITING PAGE
+            ================================================== -->
+            <section
+                class="page-section study-page"
+                id="page-writing"
+                data-page-section="writing"
+            >
+
+                <div class="study-header">
+
+                    <div>
+
+                        <p class="section-kicker">
+                            STEP 03 • WRITING
+                        </p>
+
+                        <h3>
+                            Can you remember the word?
+                        </h3>
+
+                        <p>
+                            Use the Uzbek meaning and type the
+                            correct English word.
+                        </p>
+
+                    </div>
+
+
+                    <div class="study-progress">
+
+                        <span id="writingProgressText">
+                            0 / 0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="writing-stage">
+
+                    <div class="question-number">
+                        WORD <span id="writingPosition">01</span>
+                    </div>
+
+
+                    <div
+                        class="writing-translation"
+                        id="writingTranslation"
+                    >
+                        —
+                    </div>
+
+
+                    <p class="writing-hint">
+                        Type the English word you remember.
+                    </p>
+
+
+                    <div class="answer-wrapper">
+
+                        <input
+                            type="text"
+                            id="writingAnswerInput"
+                            class="answer-input"
+                            placeholder="Type the English word..."
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+
+                        <button
+                            type="button"
+                            class="answer-audio-button"
+                            id="writingAudioButton"
+                            title="Listen to the answer pronunciation"
+                        >
+                            🔊
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="primary-button answer-submit"
+                        id="writingSubmitButton"
+                    >
+                        Check Answer
+                    </button>
+
+
+                    <div
+                        class="answer-feedback hidden"
+                        id="writingFeedback"
+                    >
+
+                        <div
+                            class="feedback-icon"
+                            id="writingFeedbackIcon"
+                        >
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong
+                                id="writingFeedbackTitle"
+                            >
+                                Excellent!
+                            </strong>
+
+                            <p
+                                id="writingFeedbackMessage"
+                            >
+                                Correct answer.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button hidden"
+                        id="writingNextButton"
+                    >
+                        Next word →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 LISTENING PAGE
+            ================================================== -->
+            <section
+                class="page-section study-page"
+                id="page-listening"
+                data-page-section="listening"
+            >
+
+                <div class="study-header">
+
+                    <div>
+
+                        <p class="section-kicker">
+                            STEP 04 • LISTENING
+                        </p>
+
+                        <h3>
+                            Listen carefully
+                        </h3>
+
+                        <p>
+                            Hear the English word and write exactly
+                            what you hear.
+                        </p>
+
+                    </div>
+
+
+                    <div class="study-progress">
+
+                        <span id="listeningProgressText">
+                            0 / 0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="listening-stage">
+
+                    <div class="listening-wave" id="listeningWave">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <p class="listening-instruction">
+                        Press play, listen, and type the word.
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="big-audio-button listening-button"
+                        id="listeningPlayButton"
+                    >
+                        ▶
+                    </button>
+
+
+                    <div class="listening-replay">
+                        <button
+                            type="button"
+                            class="text-button"
+                            id="listeningReplayButton"
+                        >
+                            🔊 Play again
+                        </button>
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="listeningAnswerInput"
+                        class="answer-input listening-answer"
+                        placeholder="What did you hear?"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="primary-button answer-submit"
+                        id="listeningSubmitButton"
+                    >
+                        Check Answer
+                    </button>
+
+
+                    <div
+                        class="answer-feedback hidden"
+                        id="listeningFeedback"
+                    >
+
+                        <div
+                            class="feedback-icon"
+                            id="listeningFeedbackIcon"
+                        >
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong
+                                id="listeningFeedbackTitle"
+                            >
+                                Excellent!
+                            </strong>
+
+                            <p
+                                id="listeningFeedbackMessage"
+                            >
+                                Correct answer.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button hidden"
+                        id="listeningNextButton"
+                    >
+                        Next word →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 REVIEW PAGE
+            ================================================== -->
+            <section
+                class="page-section study-page"
+                id="page-review"
+                data-page-section="review"
+            >
+
+                <div class="page-intro">
+
+                    <p class="section-kicker">
+                        SMART REVIEW
+                    </p>
+
+                    <h3>
+                        Review what you have learned
+                    </h3>
+
+                    <p>
+                        Words you find difficult should appear more
+                        often so they become stronger memories.
+                    </p>
+
+                </div>
+
+
+                <div class="review-dashboard">
+
+                    <article class="review-stat">
+
+                        <span>
+                            Due today
+                        </span>
+
+                        <strong id="reviewDueCount">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article class="review-stat">
+
+                        <span>
+                            Strong words
+                        </span>
+
+                        <strong id="reviewStrongCount">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article class="review-stat">
+
+                        <span>
+                            Needs practice
+                        </span>
+
+                        <strong id="reviewWeakCount">
+                            0
+                        </strong>
+
+                    </article>
+
+                </div>
+
+
+                <div class="review-action-card">
+
+                    <div class="review-action-icon">
+                        ↻
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Start smart review
+                        </h4>
+
+                        <p>
+                            Practice your vocabulary based on your
+                            previous answers.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="startReviewButton"
+                    >
+                        Start Review →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PROGRESS PAGE
+            ================================================== -->
+            <section
+                class="page-section"
+                id="page-progress"
+                data-page-section="progress"
+            >
+
+                <div class="page-intro">
+
+                    <p class="section-kicker">
+                        PROGRESS
+                    </p>
+
+                    <h3>
+                        Track your English growth
+                    </h3>
+
+                    <p>
+                        See how consistently you are learning and
+                        where you need more practice.
+                    </p>
+
+                </div>
+
+
+                <div class="progress-overview">
+
+                    <div class="progress-circle-card">
+
+                        <div class="progress-circle">
+
+                            <div class="progress-circle-inner">
+
+                                <strong id="progressAccuracy">
+                                    0%
+                                </strong>
+
+                                <span>
+                                    accuracy
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-summary">
+
+                        <div class="progress-summary-row">
+
+                            <span>
+                                Words learned
+                            </span>
+
+                            <strong id="progressWords">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-summary-row">
+
+                            <span>
+                                Correct attempts
+                            </span>
+
+                            <strong id="progressCorrect">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-summary-row">
+
+                            <span>
+                                Total attempts
+                            </span>
+
+                            <strong id="progressAttempts">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-summary-row">
+
+                            <span>
+                                Current streak
+                            </span>
+
+                            <strong id="progressStreak">
+                                0 days
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SETTINGS PAGE
+            ================================================== -->
+            <section
+                class="page-section"
+                id="page-settings"
+                data-page-section="settings"
+            >
+
+                <div class="page-intro">
+
+                    <p class="section-kicker">
+                        SETTINGS
+                    </p>
+
+                    <h3>
+                        Personalize your learning
+                    </h3>
+
+                    <p>
+                        Adjust how the trainer behaves while you
+                        study.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="setting-row">
+
+                        <div>
+
+                            <h4>
+                                Auto pronunciation
+                            </h4>
+
+                            <p>
+                                Play word pronunciation automatically
+                                in pronunciation mode.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="autoPronunciation"
+                                checked
+                            >
+
+                            <span
+                                class="switch-slider"
+                            ></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+
+                            <h4>
+                                Instant feedback
+                            </h4>
+
+                            <p>
+                                Show success or error feedback
+                                immediately after an answer.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="instantFeedback"
+                                checked
+                            >
+
+                            <span
+                                class="switch-slider"
+                            ></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+
+                            <h4>
+                                Sound effects
+                            </h4>
+
+                            <p>
+                                Enable learning success and mistake
+                                sounds.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="soundEffects"
+                                checked
+                            >
+
+                            <span
+                                class="switch-slider"
+                            ></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- =================================================
+             GLOBAL TOAST
+        ================================================== -->
+        <div
+            class="toast hidden"
+            id="toast"
+            role="status"
+            aria-live="polite"
+        >
+
+            <div class="toast-icon" id="toastIcon">
+                ✓
+            </div>
+
+            <div class="toast-content">
+
+                <strong id="toastTitle">
+                    Success
+                </strong>
+
+                <p id="toastMessage">
+                    Operation completed.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="toast-close"
+                id="toastClose"
+                aria-label="Close notification"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             LOADING OVERLAY
+        ================================================== -->
+        <div
+            class="loading-overlay hidden"
+            id="loadingOverlay"
+        >
+
+            <div class="loading-box">
+
+                <div class="loading-spinner"></div>
+
+                <strong id="loadingTitle">
+                    Processing...
+                </strong>
+
+                <p id="loadingMessage">
+                    Please wait.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CELEBRATION OVERLAY
+        ================================================== -->
+        <div
+            class="celebration-overlay hidden"
+            id="celebrationOverlay"
+            aria-hidden="true"
+        >
+
+            <div class="celebration-content">
+
+                <div class="celebration-symbol">
+                    ✦
+                </div>
+
+                <h2 id="celebrationTitle">
+                    Excellent!
+                </h2>
+
+                <p id="celebrationMessage">
+                    Correct answer.
+                </p>
+
+                <div class="celebration-confetti">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Main JavaScript -->
+<script
+    src="/static/script.js"
+    defer
+></script>
+
+</body>
+</html>
