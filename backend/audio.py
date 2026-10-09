@@ -489,3 +489,31 @@ def get_audio_service_info() -> dict:
             generated_files
         ),
     }
+
+# =========================================================
+# AUDIO HEALTH CHECK
+# =========================================================
+
+def check_audio_health() -> dict:
+    """
+    Checks whether the audio service can be loaded.
+    """
+
+    info = get_audio_service_info()
+    available = bool(info["available"])
+
+    return {
+        "healthy": available,
+        "configured": available,
+        "available": available,
+        "provider": info["provider"],
+        "voice": info["default_voice"],
+        "rate": info["default_rate"],
+        "pitch": info["default_pitch"],
+        "cached_files": info["cached_files"],
+        "error": (
+            None
+            if available
+            else "edge-tts is not installed."
+        ),
+    }
